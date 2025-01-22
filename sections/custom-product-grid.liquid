@@ -23,7 +23,9 @@
       {%- if product != blank -%}
         <div class="product-card" {{ block.shopify_attributes }}>
           <div class="product-card__image-wrapper">
+            {%- render 'loading-spinner' -%}
             {% if product.featured_image != blank %}
+              <a href="{{product.url}}">
               <img 
                 srcset="{%- if product.featured_image.width >= 165 -%}{{ product.featured_image | image_url: width: 165 }} 165w,{%- endif -%}
                   {%- if product.featured_image.width >= 360 -%}{{ product.featured_image | image_url: width: 360 }} 360w,{%- endif -%}
@@ -38,6 +40,7 @@
                 width="{{ product.featured_image.width }}"
                 height="{{ product.featured_image.height }}"
               >
+              </a>
               <style>
                 @media screen and (min-width: 749px)
                   {

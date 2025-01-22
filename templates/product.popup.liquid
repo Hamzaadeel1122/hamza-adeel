@@ -15,8 +15,8 @@
         class="popup-product-image" 
         src="{{ product.featured_image | image_url: width: 120 }}" 
         alt="{{ product.featured_image.alt | escape }}"
-        width="120"
-        height="140"
+        width="{{product.featured_image.width}}"
+        height="{{product.featured_image.height}}"
         loading="lazy"
       >
     </div>
@@ -46,7 +46,7 @@
       <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
       
       {%- for option in product.options_with_values -%}
-        <div class="product-form__input">
+        <div class="product-form__input-{{forloop.index}}">
           <label class="form__label" for="Option-{{ forloop.index0 }}">
             {{ option.name }}
           </label>

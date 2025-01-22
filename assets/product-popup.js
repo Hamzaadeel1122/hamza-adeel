@@ -22,13 +22,16 @@ class ProductPopup {
     document.addEventListener('click', async (e) => {
       const plusIcon = e.target.closest('.product-card__plus-icon');
       if (plusIcon) {
+        const productCard = plusIcon.closest(".product-card")
+        productCard.querySelector(".loading__spinner").classList.remove("hidden");
+        productCard.classList.add("loading")
         e.preventDefault();
         e.stopPropagation();
         
         const productHandle = plusIcon.dataset.productHandle;
         
         if (productHandle) {
-          await this.openPopup(productHandle);
+          await this.openPopup(productHandle,productCard);
         }
       }
     });
@@ -48,7 +51,7 @@ class ProductPopup {
     });
   }
 
-  async openPopup(handle) {
+  async openPopup(handle,productCard) {
     try {
   
       const response = await fetch(`/products/${handle}?view=popup`);
@@ -63,6 +66,8 @@ class ProductPopup {
       if (popupContent) {
         popupContent.innerHTML = html;
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        productCard.querySelector(".loading__spinner").classList.add("hidden");
+        productCard.classList.remove("loading")
         this.popup.classList.add('active');
         
         // Initialize variant selectors
@@ -157,7 +162,7 @@ class ProductPopup {
   }
 
   formatMoney(dollar) {
-    return ('$'+dollar / 100).toFixed(2);
+    return '$'+ (dollar / 100).toFixed(2);
   }
 }
 

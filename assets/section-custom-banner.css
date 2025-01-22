@@ -236,7 +236,7 @@
     }
   }
 
-  @media screen and (min-width: 769px) {
+  @media screen and (min-width: 990px) {
     .mobile-only {
       display: none;
     }
@@ -380,7 +380,15 @@
   .banner-cta-button:hover .arrow-icon {
     color: #000000;
   }
-
+  @media screen and (max-width: 1274px) {
+    .banner-description{
+      font-size: 16px;
+      max-width: 395px;
+   }
+   .banner-heading{
+      font-size: 46px;
+   }
+  }
   @media screen and (max-width: 990px) {
     .banner-image-container {
       display: flex;
@@ -414,6 +422,7 @@
       font-size: 16px;
       text-align: center;
       margin-bottom: 0;
+      margin-inline: auto;
 
     }
   }
