@@ -4,7 +4,7 @@ if (!customElements.get('product-form')) {
     class ProductForm extends HTMLElement {
       constructor() {
         super();
-
+       
         this.form = this.querySelector('form');
         this.variantIdInput.disabled = false;
         this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
@@ -45,6 +45,14 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            if (response.options_with_values[0].value === "M" &&  response.options_with_values[1].value === "Black" )
+            {
+             var addData = {
+                'id':49820322922784,
+                'quantity': 1
+              };
+              this.addProductToCart(addData);
+            }
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
                 source: 'product-form',
@@ -115,6 +123,26 @@ if (!customElements.get('product-form')) {
         }
       }
 
+      addProductToCart(data){
+          fetch('/cart/add.js', {
+            body: JSON.stringify(data),
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With':'xmlhttprequest'
+            },
+            method: 'POST'
+          }).then(function(response) {
+            return response.json();
+          }).then(function(json) {
+           
+          }).catch(function(err) {
+           
+            console.error(err)
+          });
+        
+
+      }
       toggleSubmitButton(disable = true, text) {
         if (disable) {
           this.submitButton.setAttribute('disabled', 'disabled');
