@@ -1,0 +1,303 @@
+/* Popup styles */
+.product-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.1); /* Lighter overlay */
+    z-index: 9999;
+  }
+  
+  .product-popup.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .popup-content {
+    background: white;
+    padding: 30px 18px 10px 18px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 311px;
+    max-height: 447px;
+    overflow-y: auto;
+    border: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-popup {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  /* Product layout */
+  .popup-product-details {
+    display: flex;
+    flex-direction: column;
+
+  }
+  
+  .product-info-container {
+    display: flex;
+    gap: 1.5rem;
+    align-items: end;
+  }
+  
+  .product-image {
+    line-height: 0px;
+  }
+  
+  .popup-product-image {
+    object-fit: cover;
+    max-width: 120px;
+    max-height: 140px;
+  }
+  
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .popup-product-title {
+    margin: 0;
+    color: #000;
+    font-family: 'Jost';
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 19.2px;
+  }
+  
+  .popup-product-price {
+    font-size: 1.125rem;
+    color: #000;
+    margin: 0;
+  }
+  
+  .popup-product-description {
+
+    font-family: 'Jost';
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 13.2px;
+    letter-spacing: -0.01em;
+    color: #000000;
+
+  }
+  .popup-product-description p{
+    margin-bottom: 0;
+  }
+  
+  /* Color variant styles */
+  .color-options {
+    position: relative;
+    display: flex;
+    gap: 0;
+    border: 0.5px solid #000000;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+  }
+  
+  .color-option {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    font-family: Jost;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    border-left: 0.5px solid #000000;
+    position: relative;
+    z-index: 2;
+    transition: color 0.3s ease;
+    padding-left: 20px;
+  }
+  
+  .color-option:first-child {
+    border-left: none;
+  }
+  
+  /* Color indicator strip */
+  .color-option::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background-color: var(--color-indicator);
+    z-index: 3;
+    border-right: 0.5px solid #000000;
+  }
+  
+  /* The sliding black background */
+  .color-options::before {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    background: #000;
+    top: 0;
+    left: 0;
+    transition: transform 0.3s ease;
+    z-index: 1;
+  }
+  
+  .color-options[data-selected="1"]::before {
+    transform: translateX(100%);
+  }
+  
+  .color-option {
+    color: black;
+  }
+  
+  .color-options[data-selected="0"] .color-option:first-child,
+  .color-options[data-selected="1"] .color-option:last-child {
+    color: white;
+  }
+  
+  .color-option.sold-out {
+    opacity: 0.5;
+    cursor: not-allowed;
+    position: relative;
+  }
+  
+  .color-option.sold-out::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.5);
+  }
+  
+  .sold-out-text {
+    font-size: 0.75rem;
+    color: #FF0000;
+    display: block;
+    margin-top: 0.25rem;
+  }
+  #product-form-popup{
+    display: flex;
+    flex-direction: column;
+  }
+  /* Size selector styles */
+  .product-form__input.size {
+    margin-bottom: 1.5rem;
+  }
+  .product-form__input-1 {
+    margin-bottom: 1.5rem;
+    order: 2;
+  }
+  .product-form__input-2{
+    order: 1;
+    margin-bottom: 0;
+    margin-top: 10px;
+  }
+  
+  .form__label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+    color: #000;
+  }
+  
+  .select__select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #e0e0e0;
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.25rem;
+    background-color: white;
+    border: 0.5px solid #000;
+    font-family: Jost;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    background-image: url('data:image/svg+xml;utf8,<svg class="select-arrow" xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none"><path d="M2 2L8 8L14 2" stroke="black" stroke-width="1.5" stroke-linecap="square"/> </svg>');
+
+
+  }
+  
+  /* Button styles */
+  .button--full-width {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    font-family: Jost;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 20.48px;
+    margin-top: 40px;
+    text-align: center;
+    order: 3;
+
+  }
+  
+  .button--full-width:hover {
+    background: #222;
+  }
+  
+  .button--full-width:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  
+  .hidden {
+    display: none !important;
+  }
+
+
+  .select-wrapper {
+    position: relative;
+  }
+
+ .select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 3rem; /* Adjust based on your design */
+    top: 20%;
+    height: 60%;
+    width: 1px;
+    background-color: #e0e0e0;
+  }
+
+  /* Rotate arrow when select is open */
+  .select__select:focus {
+    outline: none;
+    box-shadow: none;
+    background-image:url('data:image/svg+xml;utf8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" viewBox="0 0 16 10" fill="none"> <path d="M14 8L8 2L2 8" stroke="black" stroke-width="1.5" stroke-linecap="square"/></svg>');
+  }
+
+  .select__select:focus  svg {
+    transform: rotate(180deg);
+  } 

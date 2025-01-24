@@ -1,0 +1,247 @@
+{{ "section-custom-banner.css" |  asset_url | stylesheet_tag}}
+
+
+
+<style>
+#Banner-{{ section.id }} .uvp-bar{
+    background-color: {{section.settings.uvp_bar_bg}};
+}
+
+</style>
+
+<div class="custom-banner" id="Banner-{{ section.id }}">
+  {%- liquid 
+    assign logo = section.settings.logo
+    assign banner_text = section.settings.banner_text
+    assign button_text = section.settings.button_text
+    assign button_link = section.settings.button_link
+  -%}
+
+  <nav class="banner-nav">
+    <div class="banner-container">
+      <!-- Mobile Menu Button -->
+      <button class="mobile-menu-button mobile-only">
+        <svg class="hamburger-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="13" viewBox="0 0 20 13" fill="none">
+          <path d="M1 6.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 11.5H19" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 15 15" fill="none">
+          <path d="M1 13.9997L13.7279 1.27177" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M1 1.00031L13.7279 13.7282" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <!-- Logo -->
+      <div class="banner-logo">
+        {%- if logo != blank -%}
+          <img src="{{ logo | img_url: 'master' }}" alt="{{ shop.name }}" loading="lazy">
+        {%- endif -%}
+      </div>
+
+
+
+      <!-- Center Text - Hidden on mobile -->
+      <div class="banner-text desktop-only">
+        {%- if banner_text != blank -%}
+          <p>{{ banner_text }}</p>
+        {%- endif -%}
+      </div>
+
+      <!-- Button with Arrow - Hidden on mobile -->
+      <div class="banner-button desktop-only">
+        {%- if button_text != blank and button_link != blank -%}
+          <a href="{{ button_link }}" class="button">
+            <span>{{ button_text }}</span>
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="12" viewBox="0 0 26 12" fill="none">
+              <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-content">
+      {%- if banner_text != blank -%}
+        <p class="mobile-text">{{ banner_text }}</p>
+      {%- endif -%}
+      
+      <div class="banner-button mobile-button">
+        {%- if button_text != blank and button_link != blank -%}
+          <a href="{{ button_link }}" class="button">
+            <span>{{ button_text }}</span>
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="12" viewBox="0 0 26 12" fill="none">
+              <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner Content -->
+  <div class="banner-content">
+    <div class="banner-image-container">
+      {%- if section.settings.banner_image != blank -%}
+        {{
+          section.settings.banner_image
+          | image_url: width: 3840
+          | image_tag:
+            loading: 'eager',
+            width: section.settings.banner_image.width,
+            height: section.settings.banner_image.height,
+            class: 'banner-image desktop-only',
+            sizes: '100vw'
+        }}
+        {{
+          section.settings.banner_mobile_image | default: section.settings.banner_image
+          | image_url: width: 3840
+          | image_tag:
+            loading: 'eager',
+            width: section.settings.banner_image.width,
+            height: section.settings.banner_image.height,
+            class: 'banner-image mobile-only',
+            sizes: '100vw'
+        }}
+      {%- endif -%}
+
+      <div class="banner-text-content">
+        <h1 class="banner-heading">{{ section.settings.banner_heading }}</h1>
+        <p class="banner-description desktop-only">{{ section.settings.banner_description }}</p>
+        <p class="banner-description mobile-only">{{ section.settings.banner_description_mobile }}</p>
+        {%- if section.settings.banner_button_text != blank -%}
+          <a href="{{ section.settings.banner_button_link }}" class="banner-cta-button">
+            <span>{{ section.settings.banner_button_text }}</span>
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="26" height="12" viewBox="0 0 26 12" fill="none">
+              <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+  
+  <div class="uvp-bar desktop-only"> {{section.settings.uvp_text}}</div>
+  <div class="uvp-bar mobile-only"> {{section.settings.uvp_text_mobile}}</div>
+</div>
+
+<script src="{{ 'mobile-menu.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Custom Banner",
+  "settings": [
+    {
+      "type": "color",
+      "id": "nav_background_color",
+      "label": "Navigation Background Color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button Background Color",
+      "default": "#FFF544"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "banner_text",
+      "label": "Banner Text",
+      "default": "Find the ideal gift for your loved ones"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "CHOOSE GIFT"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Banner Content"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_mobile_image",
+      "label": "Mobile Banner Image (Optional)",
+      "info": "If not set, desktop image will be used"
+    },
+    {
+      "type": "text",
+      "id": "banner_heading",
+      "label": "Banner Heading",
+      "default": "The Gift Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "banner_description",
+      "label": "Banner Description",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season."
+    },
+    {
+      "type": "textarea",
+      "id": "banner_description_mobile",
+      "label": "Banner Description Mobile",
+      "default": "Discover Joy: Your Ultimate Holiday Gift Destination."
+    },
+    {
+      "type": "text",
+      "id": "banner_button_text",
+      "label": "Banner Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "banner_button_link",
+      "label": "Banner Button Link"
+    },
+   
+    {
+      "type": "checkbox",
+      "id": "show_text_below",
+      "default": false,
+      "label": "Show text below image on mobile"
+    },
+    {
+      "type": "text",
+      "id": "uvp_text",
+      "label": "UVP Bar Text",
+      "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+    },
+    {
+      "type": "text",
+      "id": "uvp_text_mobile",
+      "label": "UVP Bar Text Mobile",
+      "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
+    },
+    {
+      "type": "color",
+      "id": "uvp_bar_bg",
+      "label": "UVP Bar Background Color",
+      "default": "#F5F5F5"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner"
+    }
+  ]
+}
+{% endschema %}
