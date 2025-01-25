@@ -44,14 +44,14 @@ if (!customElements.get('product-form')) {
 
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
-          .then((response) => {
+          .then(async (response) => {
             if (response.options_with_values[0].value === "M" &&  response.options_with_values[1].value === "Black" )
             {
              var addData = {
                 'id':49820322922784,
                 'quantity': 1
               };
-              this.addProductToCart(addData);
+              await this.addProductToCart(addData);
             }
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
@@ -123,26 +123,27 @@ if (!customElements.get('product-form')) {
         }
       }
 
-      addProductToCart(data){
-          fetch('/cart/add.js', {
-            body: JSON.stringify(data),
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Requested-With':'xmlhttprequest'
-            },
-            method: 'POST'
-          }).then(function(response) {
-            return response.json();
-          }).then(function(json) {
-           
-          }).catch(function(err) {
-           
-            console.error(err)
-          });
-        
-
+      addProductToCart(data) {
+        return fetch('/cart/add.js', {
+          body: JSON.stringify(data),
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'xmlhttprequest'
+          },
+          method: 'POST'
+        })
+        .then(response => response.json())
+        // .then(json => {
+        //   if (this.cart) {
+        //     this.cart.renderContents(json);
+        //   }
+        // })
+        .catch(err => {
+          console.error(err)
+        });
       }
+
       toggleSubmitButton(disable = true, text) {
         if (disable) {
           this.submitButton.setAttribute('disabled', 'disabled');
