@@ -1,5 +1,5 @@
   .custom-product-grid {
-    padding: 40px 0;
+    padding: 40px 44px;
   }
 
   .section-heading {
@@ -7,7 +7,7 @@
     margin-bottom: 40px;
     font-size: 32px;
     font-weight: 500;
-    padding: 0 20px;
+    padding: 0
   }
 
   .product-grid {
@@ -77,17 +77,9 @@
     margin: 0;
   }
 
-  @media screen and (min-width: 750px) {
-    /* Desktop-specific styles */
-    #product-card__plus-icon-block_16484751516 {
-      top: 85%;
-      left: 10%;
-    }
-    #product-card__plus-icon-block_16484751517 {
-      top: 15%;
-      left: 85%;
-    }
-   }
+.custom-product-grid{
+     padding: 40px 20px;
+}
 
   @media screen and (max-width: 749px) {
     /* Mobile-specific styles */
