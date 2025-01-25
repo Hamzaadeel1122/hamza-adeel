@@ -13,7 +13,7 @@
   .product-grid {
     display: grid;
     gap: var(--grid-gap, 30px);
-    padding: 0 20px;
+    padding: 0;
   }
 
   /* Grid gap variations */
@@ -78,7 +78,7 @@
   }
 @media screen and (max-width: 990px) {
 .custom-product-grid{
-     padding: 40px 20px;
+     padding: 40px 15px;
 }
 }
 
@@ -97,7 +97,6 @@
 
     .product-grid {
       gap: 10px;
-      padding: 0 15px;
     }
 
     .section-heading {
